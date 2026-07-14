@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AppointmentStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Builder;
@@ -11,19 +12,17 @@ use Illuminate\Database\Eloquent\Model;
 #[Hidden([])]
 class Appointment extends Model
 {
-    public const STATUS_ACTIVE = 'active';
-    public const STATUS_CANCELLED = 'cancelled';
-
     protected function casts(): array
     {
         return [
             'date' => 'date',
+            'status' => AppointmentStatus::class,
         ];
     }
 
     public function scopeActive(Builder $query): Builder
     {
-        return $query->where('status', self::STATUS_ACTIVE);
+        return $query->where('status', AppointmentStatus::Active);
     }
 
     public function scopeForDate(Builder $query, string $date): Builder
@@ -33,11 +32,11 @@ class Appointment extends Model
 
     public function isActive(): bool
     {
-        return $this->status === self::STATUS_ACTIVE;
+        return $this->status === AppointmentStatus::Active;
     }
 
     public function cancel(): bool
     {
-        return $this->update(['status' => self::STATUS_CANCELLED]);
+        return $this->update(['status' => AppointmentStatus::Cancelled]);
     }
 }

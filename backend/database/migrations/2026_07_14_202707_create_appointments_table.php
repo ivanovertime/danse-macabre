@@ -14,10 +14,18 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->date('date');
-            $table->string('time_slot', 5);
+            $table->char('time_slot', 5);
             $table->string('status', 20)->default('active');
+            $table->index('status');
+            $table->index('date');
             $table->timestamps();
         });
+
+        DB::statement(
+            "ALTER TABLE appointments
+            ADD CONSTRAINT chk_time_slot_format
+            CHECK (time_slot ~ '^\\d{2}:\\d{2}$')"
+        );
 
         DB::statement(
             'CREATE UNIQUE INDEX idx_appointments_slot_active
@@ -36,6 +44,11 @@ return new class extends Migration
     {
         DB::statement('DROP INDEX IF EXISTS idx_appointments_slot_active');
         DB::statement('DROP INDEX IF EXISTS idx_appointments_email_active');
+        Schema::table('appointments', function (Blueprint $table) {
+            $table->dropIndex('status');
+            $table->dropIndex('date');
+        });
+        DB::statement('ALTER TABLE appointments DROP CONSTRAINT IF EXISTS chk_time_slot_format');
         Schema::dropIfExists('appointments');
     }
 };
