@@ -1,0 +1,13 @@
+# Nix local composer
+.nix-composer/
+
+# Laravel
+backend/vendor/
+backend/.env
+backend/storage/*.key
+
+# Nuxt
+frontend/node_modules/
+frontend/.nuxt/
+frontend/dist/
+.direnv/
