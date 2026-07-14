@@ -90,10 +90,10 @@ ON appointments (email) WHERE status = 'active';
 
 ### Phase 3: Frontend - PrimeVue Setup
 
-- [ ] Change theme from Aura → Lara with Noir preset
-- [ ] Add Surface Stone palette
-- [ ] Enable Ripple effect
-- [ ] Configure dark mode as default
+- [x] Change theme from Aura → Lara with Noir preset
+- [x] Add Surface Stone palette
+- [x] Enable Ripple effect
+- [x] Configure dark mode as default
 
 ### Phase 4: Frontend - Appointment Form
 
