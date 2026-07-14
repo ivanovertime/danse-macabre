@@ -104,9 +104,9 @@ ON appointments (email) WHERE status = 'active';
 
 ### Phase 5: Frontend - Confirmation
 
-- [ ] Success screen with macabre copy
-- [ ] Appointment details display
-- [ ] "Book another" option (for rebooking)
+- [x] Success screen with macabre copy
+- [x] Appointment details display
+- [x] "Book another" option (for rebooking)
 
 ### Phase 6: Testing
 
