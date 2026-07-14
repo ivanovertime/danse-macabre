@@ -97,10 +97,10 @@ ON appointments (email) WHERE status = 'active';
 
 ### Phase 4: Frontend - Appointment Form
 
-- [ ] Calendar component (PrimeVue)
-- [ ] Time slot picker
-- [ ] Name/email form
-- [ ] API integration
+- [x] Calendar component (PrimeVue)
+- [x] Time slot picker
+- [x] Name/email form
+- [x] API integration
 
 ### Phase 5: Frontend - Confirmation
 
