@@ -82,11 +82,11 @@ ON appointments (email) WHERE status = 'active';
 
 ### Phase 2: Backend API
 
-- [ ] `StoreAppointmentRequest` (validation)
-- [ ] `AppointmentResource` (response transformation)
-- [ ] `AppointmentController` (CRUD)
-- [ ] `BookAppointmentService` (business logic)
-- [ ] Routes configuration
+- [x] `StoreAppointmentRequest` (validation)
+- [x] `AppointmentResource` (response transformation)
+- [x] `AppointmentController` (CRUD + slots)
+- [x] `BookAppointmentService` (business logic)
+- [x] Routes configuration
 
 ### Phase 3: Frontend - PrimeVue Setup
 
