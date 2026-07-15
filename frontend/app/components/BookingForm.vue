@@ -1,14 +1,14 @@
 <template>
   <form class="flex flex-col gap-4 w-full max-w-sm" @submit.prevent="submit">
     <div class="flex flex-col gap-1">
-      <label for="name" class="text-sm text-surface-400">Your name</label>
-      <InputText id="name" v-model="name" placeholder="Name" :invalid="!!errors.name" />
+      <label for="name" class="text-sm text-surface-400">{{ $t('name_label') }}</label>
+      <InputText id="name" v-model="name" :placeholder="$t('name_placeholder')" :invalid="!!errors.name" />
       <small v-if="errors.name" class="text-red-400">{{ errors.name }}</small>
     </div>
 
     <div class="flex flex-col gap-1">
-      <label for="email" class="text-sm text-surface-400">Your email</label>
-      <InputText id="email" v-model="email" placeholder="Email" :invalid="!!errors.email" />
+      <label for="email" class="text-sm text-surface-400">{{ $t('email_label') }}</label>
+      <InputText id="email" v-model="email" :placeholder="$t('email_placeholder')" :invalid="!!errors.email" />
       <small v-if="errors.email" class="text-red-400">{{ errors.email }}</small>
     </div>
 
@@ -19,13 +19,13 @@
     <div class="flex gap-2">
       <Button
         type="submit"
-        label="Book my eternal rest"
+        :label="$t('book_button')"
         :loading="loading"
         class="flex-1"
       />
       <Button
         type="button"
-        label="I choose to suffer"
+        :label="$t('cancel_button')"
         severity="secondary"
         @click="$emit('cancel')"
       />

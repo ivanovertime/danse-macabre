@@ -6,8 +6,11 @@
 </template>
 
 <script setup>
+const { t } = useI18n()
+
 useHead({
   htmlAttrs: { class: 'dark' },
+  title: () => t('title'),
   link: [
     { rel: 'icon', type: 'image/png', href: '/favicon-96x96.png?v=20260715', sizes: '96x96' },
     { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg?v=20260715' },

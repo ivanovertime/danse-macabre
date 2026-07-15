@@ -11,10 +11,19 @@
   >
     <div class="absolute inset-0 bg-black/60 pointer-events-none" />
     <div class="flex flex-col items-center gap-8 max-w-2xl w-full bg-black/50 backdrop-blur-sm rounded-2xl p-8">
-      <div class="text-center">
-        <h1 class="text-3xl font-bold mb-2">Danse Macabre</h1>
-        <p class="text-surface-400">The ultimate solution to all your problems</p>
+      <div class="flex w-full justify-between items-start">
+        <div class="text-center flex-1">
+          <h1 class="text-3xl font-bold mb-2">Danse Macabre</h1>
+          <p class="text-surface-400">{{ $t('subtitle') }}</p>
+        </div>
       </div>
+      <SelectButton
+        :model-value="locale"
+        :options="localeOptions"
+        option-label="name"
+        option-value="code"
+        @update:model-value="setLocale"
+      />
 
       <BookingConfirmation
         v-if="bookedAppointment"
@@ -25,7 +34,7 @@
       <template v-else>
         <AppointmentCalendar
           v-model="selectedDate"
-          label="Choose your farewell date"
+          :label="$t('choose_date')"
         />
 
         <TimeSlotPicker
@@ -33,7 +42,7 @@
           :key="selectedDate.toISOString()"
           :date="selectedDate"
           v-model="selectedSlot"
-          label="Select your final hour"
+          :label="$t('select_hour')"
         />
 
         <BookingForm
@@ -49,6 +58,19 @@
 </template>
 
 <script setup lang="ts">
+import SelectButton from 'primevue/selectbutton'
+
+const { locale } = useI18n()
+
+const localeOptions = [
+  { code: 'en', name: 'EN' },
+  { code: 'es', name: 'ES' },
+]
+
+function setLocale(code: string | number) {
+  locale.value = String(code)
+}
+
 const selectedDate = ref<Date | null>(null)
 const selectedSlot = ref<string | null>(null)
 const bookedAppointment = ref<Record<string, unknown> | null>(null)
