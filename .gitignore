@@ -2,6 +2,9 @@
 .nix-composer/
 .direnv/
 
+# Env
+.env
+
 # Laravel
 backend/vendor/
 backend/.env
