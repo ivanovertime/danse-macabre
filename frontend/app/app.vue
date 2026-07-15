@@ -17,6 +17,9 @@ useHead({
     { rel: 'shortcut icon', href: '/favicon.ico?v=20260715' },
     { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png?v=20260715' },
     { rel: 'manifest', href: '/site.webmanifest?v=20260715' },
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap' },
   ],
   meta: [
     { name: 'apple-mobile-web-app-title', content: 'Danse Macabre' },

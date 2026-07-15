@@ -10,10 +10,12 @@
     }"
   >
     <div class="absolute inset-0 bg-black/60 pointer-events-none" />
+    <h1 class="font-display text-4xl sm:text-5xl text-center mb-6 title-flicker">
+      {{ $t('title') }}
+    </h1>
     <div class="flex flex-col items-center gap-8 max-w-2xl lg:max-w-4xl w-full bg-black/50 backdrop-blur-sm rounded-2xl p-4 sm:p-8">
       <div class="flex flex-col sm:flex-row w-full justify-between items-center sm:items-start gap-4">
         <div class="text-center sm:text-left flex-1">
-          <h1 class="text-3xl font-bold mb-2">Danse Macabre</h1>
           <p class="text-surface-400">{{ $t('subtitle') }}</p>
         </div>
         <SelectButton
@@ -100,3 +102,27 @@ function resetAll() {
   bookedAppointment.value = null
 }
 </script>
+
+<style scoped>
+.title-flicker {
+  color: #f5f0e8;
+  animation: flicker 3s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 20px rgba(245, 240, 232, 0.3), 0 0 40px rgba(245, 240, 232, 0.15);
+  }
+  50% {
+    opacity: 0.88;
+    text-shadow: 0 0 30px rgba(245, 240, 232, 0.45), 0 0 60px rgba(245, 240, 232, 0.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title-flicker {
+    animation: none;
+  }
+}
+</style>
