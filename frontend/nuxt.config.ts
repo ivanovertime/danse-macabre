@@ -7,13 +7,16 @@ export default defineNuxtConfig({
 
   ssr: false,
 
-  modules: ['@primevue/nuxt-module'],
+  modules: ['@primevue/nuxt-module', '@nuxtjs/tailwindcss'],
 
   primevue: {
     options: {
       ripple: true,
       theme: {
         preset: Noir,
+        options: {
+          darkModeSelector: '.dark',
+        },
       },
     },
   },
