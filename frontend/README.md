@@ -1,75 +1,51 @@
-# Nuxt Minimal Starter
+# Frontend — Danse Macabre
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Nuxt 4.4 SPA con PrimeVue 4.5. Sin SSR — todo el rendering es del lado del cliente.
 
-## Setup
+## Stack
 
-Make sure to install dependencies:
+- **Nuxt 4.4** (`ssr: false`)
+- **PrimeVue 4.5** — Tema Lara Noir (dark mode por defecto)
+- **Tailwind CSS** — utilidades
+- **nuqs** — state management via URL query params
+- **i18n** — ingles y espanol
+
+## Estructura
+
+```
+frontend/app/
+├── components/
+│   ├── AppointmentCalendar.vue   # Selector de fecha (solo dias habiles)
+│   ├── TimeSlotPicker.vue        # Grid de 10 slots (09:00 - 18:00)
+│   ├── BookingForm.vue           # Nombre + email
+│   └── BookingConfirmation.vue   # Pantalla de exito
+├── composables/
+│   └── useApi.ts                 # Comunicacion con la API de Laravel
+├── pages/
+│   └── index.vue                 # Pagina principal (wizard de booking)
+└── themes/
+    └── noir.ts                   # Configuracion del tema PrimeVue
+```
+
+## Desarrollo
 
 ```bash
-# npm
-npm install
+# Ya esta levantado con docker compose up -d
+# Hot reload en http://localhost:3000
 
-# pnpm
+# Si necesitas correr sin Docker:
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
+## Build
 
 ```bash
-# npm
-npm run build
+# Build estatico para produccion
+pnpm generate
 
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
+# Preview del build
 pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+El build estatico se sirve via FrankenPHP en produccion (mismo contenedor que la API).
