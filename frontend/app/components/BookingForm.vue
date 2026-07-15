@@ -1,5 +1,5 @@
 <template>
-  <form class="flex flex-col gap-4 w-full max-w-sm" @submit.prevent="submit">
+  <form class="flex flex-col gap-4 w-full" @submit.prevent="submit">
     <div class="flex flex-col gap-1">
       <label for="name" class="text-sm text-surface-400">{{ $t('name_label') }}</label>
       <InputText id="name" v-model="name" :placeholder="$t('name_placeholder')" :invalid="!!errors.name" />
@@ -48,6 +48,7 @@ const emit = defineEmits<{
 }>()
 
 const { apiBase } = useApi()
+const { locale } = useI18n()
 
 const name = ref('')
 const email = ref('')
@@ -65,6 +66,7 @@ async function submit() {
   try {
     const response = await $fetch<{ data: Record<string, unknown> }>(`${apiBase}/api/appointments`, {
       method: 'POST',
+      headers: { 'Accept-Language': locale.value },
       body: {
         name: name.value,
         email: email.value,

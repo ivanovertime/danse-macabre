@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen flex flex-col items-center justify-center p-8 relative"
+    class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 relative"
     :style="{
       backgroundImage: 'url(/bg.gif)',
       backgroundSize: 'cover',
@@ -10,20 +10,20 @@
     }"
   >
     <div class="absolute inset-0 bg-black/60 pointer-events-none" />
-    <div class="flex flex-col items-center gap-8 max-w-2xl w-full bg-black/50 backdrop-blur-sm rounded-2xl p-8">
-      <div class="flex w-full justify-between items-start">
-        <div class="text-center flex-1">
+    <div class="flex flex-col items-center gap-8 max-w-2xl lg:max-w-4xl w-full bg-black/50 backdrop-blur-sm rounded-2xl p-4 sm:p-8">
+      <div class="flex flex-col sm:flex-row w-full justify-between items-center sm:items-start gap-4">
+        <div class="text-center sm:text-left flex-1">
           <h1 class="text-3xl font-bold mb-2">Danse Macabre</h1>
           <p class="text-surface-400">{{ $t('subtitle') }}</p>
         </div>
+        <SelectButton
+          :model-value="locale"
+          :options="localeOptions"
+          option-label="name"
+          option-value="code"
+          @update:model-value="setLocale"
+        />
       </div>
-      <SelectButton
-        :model-value="locale"
-        :options="localeOptions"
-        option-label="name"
-        option-value="code"
-        @update:model-value="setLocale"
-      />
 
       <BookingConfirmation
         v-if="bookedAppointment"
@@ -32,26 +32,32 @@
       />
 
       <template v-else>
-        <AppointmentCalendar
-          v-model="selectedDate"
-          :label="$t('choose_date')"
-        />
+        <div class="flex flex-col lg:flex-row gap-8 w-full">
+          <div class="lg:w-1/2 flex justify-center">
+            <AppointmentCalendar
+              v-model="selectedDate"
+              :label="$t('choose_date')"
+            />
+          </div>
 
-        <TimeSlotPicker
-          v-if="selectedDate"
-          :key="selectedDate.toISOString()"
-          :date="selectedDate"
-          v-model="selectedSlot"
-          :label="$t('select_hour')"
-        />
+          <div class="lg:w-1/2 flex flex-col items-center gap-8">
+            <TimeSlotPicker
+              v-if="selectedDate"
+              :key="selectedDate.toISOString()"
+              :date="selectedDate"
+              v-model="selectedSlot"
+              :label="$t('select_hour')"
+            />
 
-        <BookingForm
-          v-if="selectedDate && selectedSlot"
-          :date="selectedDate"
-          :time-slot="selectedSlot"
-          @submitted="onSubmitted"
-          @cancel="reset"
-        />
+            <BookingForm
+              v-if="selectedDate && selectedSlot"
+              :date="selectedDate"
+              :time-slot="selectedSlot"
+              @submitted="onSubmitted"
+              @cancel="reset"
+            />
+          </div>
+        </div>
       </template>
     </div>
   </div>
