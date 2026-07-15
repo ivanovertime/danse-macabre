@@ -16,5 +16,6 @@
   "label_date": "Date",
   "label_time": "Time",
   "loading": "Loading available slots...",
-  "locale": "en-US"
+  "locale": "en-US",
+  "no_slots": "Full"
 }

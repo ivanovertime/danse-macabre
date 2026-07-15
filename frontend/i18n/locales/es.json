@@ -16,5 +16,6 @@
   "label_date": "Fecha",
   "label_time": "Hora",
   "loading": "Cargando horarios disponibles...",
-  "locale": "es-ES"
+  "locale": "es-ES",
+  "no_slots": "Completo"
 }
