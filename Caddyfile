@@ -1,0 +1,19 @@
+{$SERVER_NAME:localhost} {
+	root * /app/public
+
+	handle /api/* {
+		php_server {
+			index app.php
+		}
+	}
+
+	handle {
+		try_files {path} /index.html
+		file_server
+	}
+
+	log {
+		output stdout
+		format json
+	}
+}
