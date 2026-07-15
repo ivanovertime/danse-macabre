@@ -31,6 +31,35 @@ class AppointmentController extends Controller
         return response()->json(['data' => $slots]);
     }
 
+    public function slotsMonth(string $year, string $month)
+    {
+        $totalSlots = 10;
+
+        $bookedPerDate = Appointment::active()
+            ->forMonth((int) $year, (int) $month)
+            ->selectRaw('date, count(*) as booked')
+            ->groupBy('date')
+            ->pluck('booked', 'date');
+
+        $result = [];
+        $daysInMonth = Carbon::createFromDate((int) $year, (int) $month, 1)->daysInMonth;
+
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $date = Carbon::createFromDate((int) $year, (int) $month, $day);
+
+            if (($date->isFuture() || $date->isToday()) && !$date->isWeekend()) {
+                $dateKey = $date->format('Y-m-d');
+                $booked = $bookedPerDate->get($dateKey, 0);
+                $result[$dateKey] = [
+                    'available' => $totalSlots - (int) $booked,
+                    'total' => $totalSlots,
+                ];
+            }
+        }
+
+        return response()->json(['data' => $result]);
+    }
+
     public function store(StoreAppointmentRequest $request, BookAppointmentService $service)
     {
         $appointment = $service->handle($request);

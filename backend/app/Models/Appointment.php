@@ -30,6 +30,12 @@ class Appointment extends Model
         return $query->where('date', $date);
     }
 
+    public function scopeForMonth(Builder $query, int $year, int $month): Builder
+    {
+        return $query->whereYear('date', $year)
+            ->whereMonth('date', $month);
+    }
+
     public function isActive(): bool
     {
         return $this->status === AppointmentStatus::Active;
