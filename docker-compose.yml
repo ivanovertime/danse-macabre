@@ -1,0 +1,70 @@
+services:
+  pgsql:
+    image: 'postgres:17-alpine'
+    ports:
+      - '${FORWARD_DB_PORT:-5432}:5432'
+    environment:
+      PGPASSWORD: '${DB_PASSWORD:-postgres}'
+      POSTGRES_DB: '${DB_DATABASE:-danse_macabre}'
+      POSTGRES_USER: '${DB_USERNAME:-postgres}'
+      POSTGRES_PASSWORD: '${DB_PASSWORD:-postgres}'
+    volumes:
+      - 'danse-pgsql:/var/lib/postgresql/data'
+    networks:
+      - danse-net
+    healthcheck:
+      test:
+        - CMD
+        - pg_isready
+        - '-q'
+        - '-d'
+        - '${DB_DATABASE:-danse_macabre}'
+        - '-U'
+        - '${DB_USERNAME:-postgres}'
+      retries: 3
+      timeout: 5s
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '${APP_PORT:-8000}:8000'
+    environment:
+      DB_HOST: pgsql
+      DB_PORT: 5432
+      DB_DATABASE: '${DB_DATABASE:-danse_macabre}'
+      DB_USERNAME: '${DB_USERNAME:-postgres}'
+      DB_PASSWORD: '${DB_PASSWORD:-postgres}'
+    volumes:
+      - './backend:/var/www/html'
+    networks:
+      - danse-net
+    depends_on:
+      pgsql:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - '${FRONTEND_PORT:-3000}:3000'
+    environment:
+      NUXT_PUBLIC_API_BASE: 'http://localhost:8000'
+      HOST: '0.0.0.0'
+    volumes:
+      - './frontend:/app'
+      - '/app/node_modules'
+    networks:
+      - danse-net
+    depends_on:
+      - backend
+
+networks:
+  danse-net:
+    driver: bridge
+
+volumes:
+  danse-pgsql:
+    driver: local
