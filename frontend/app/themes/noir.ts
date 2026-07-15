@@ -49,9 +49,4 @@ const Noir = definePreset(Lara, {
     }
 });
 
-export default {
-    preset: Noir,
-    options: {
-        darkModeSelector: '.dark'
-    }
-};
+export default Noir;
