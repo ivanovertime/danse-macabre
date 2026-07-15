@@ -1,0 +1,20 @@
+{
+  "title": "Baile con la muerte",
+  "subtitle": "La solución definitiva a todos tus problemas",
+  "choose_date": "Elige tu fecha de despedida",
+  "select_hour": "Selecciona tu hora final",
+  "name_label": "Tu nombre",
+  "name_placeholder": "Nombre",
+  "email_label": "Tu correo electrónico",
+  "email_placeholder": "Correo electrónico",
+  "book_button": "Reserva mi descanso eterno",
+  "cancel_button": "Elijo sufrir",
+  "confirmation_title": "Cita Confirmada",
+  "confirmation_description": "Tu cita final ha sido reservada. La solución definitiva a todos tus problemas te espera.",
+  "label_name": "Nombre",
+  "label_email": "Correo electrónico",
+  "label_date": "Fecha",
+  "label_time": "Hora",
+  "loading": "Cargando horarios disponibles...",
+  "locale": "es-ES"
+}
