@@ -1,13 +1,25 @@
-# Nix local composer
+# Nix
 .nix-composer/
+.direnv/
 
 # Laravel
 backend/vendor/
 backend/.env
 backend/storage/*.key
+backend/storage/logs/
+backend/bootstrap/cache/
 
 # Nuxt
 frontend/node_modules/
 frontend/.nuxt/
 frontend/dist/
-.direnv/
+frontend/.output/
+
+# Docker
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+/frontend/.pnpm-store/
+/frontend/.pnpm-store/*
