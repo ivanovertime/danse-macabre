@@ -1,11 +1,16 @@
 # Danse Macabre
 
-> *Tu proxima cita ya esta agendada. Solo falta confirmar la fecha.*
+> *"Porque la única manera de estar realmente saludable... es dejar de estar vivo."*
 
-**AgendaSalud.online** es un portal de salud que te ayuda a agendar tu proxima consulta medica. Nada fuera de lo normal... salvo por el hecho de que tu doctora se llama La Muerte.
+**AgendaSalud.online** es la plataforma pionera en el modelo **SaaS** (*Soul as a Service*).
 
-Prueba tecnica para **JuegaEnLinea**: un sistema de citas medicas que en realidad sirve para reservar tu ultimo baile.
+Mientras que los portales médicos tradicionales se desgastan intentando retrasar lo inevitable con tratamientos temporales, nosotros ofrecemos la **optimización definitiva del ciclo de vida del paciente**. Despedirse de las constantes vitales es, técnicamente, erradicar el 100% de las enfermedades conocidas.
 
+Tu consulta automatizada está gestionada directamente por nuestra **Directora de Operaciones Globales**: La Muerte. Tu próxima cita ya está agendada; aquí solo gestionamos el contrato para tu último baile.
+
+Prueba técnica para **JuegaEnLinea**: un sistema de citas médicas que en realidad sirve para reservar tu último baile.
+
+![App Preview](./docs/preview.png)
 ---
 
 ## Stack
