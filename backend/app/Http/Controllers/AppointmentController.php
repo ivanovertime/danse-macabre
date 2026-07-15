@@ -52,6 +52,6 @@ class AppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
         $appointment->cancel();
 
-        return response()->json(['message' => 'Appointment cancelled.']);
+        return response()->json(['message' => trans('messages.appointment_cancelled')]);
     }
 }

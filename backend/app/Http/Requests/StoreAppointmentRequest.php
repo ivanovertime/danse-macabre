@@ -26,7 +26,7 @@ class StoreAppointmentRequest extends FormRequest
             'date' => ['required', 'date', 'after:today', function ($attribute, $value, $fail) {
                 $day = \Carbon\Carbon::parse($value)->dayOfWeek;
                 if ($day === \Carbon\Carbon::SATURDAY || $day === \Carbon\Carbon::SUNDAY) {
-                    $fail('Appointments are only available on weekdays.');
+                    $fail(trans('validation.weekday_only'));
                 }
             }],
             'time_slot' => ['required', Rule::in($validTimeSlots)],
@@ -36,8 +36,8 @@ class StoreAppointmentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'time_slot.in' => 'The selected time slot is not valid.',
-            'date.after' => 'The appointment date must be in the future.',
+            'time_slot.in' => trans('validation.time_slot.in'),
+            'date.after' => trans('validation.date.after'),
         ];
     }
 }

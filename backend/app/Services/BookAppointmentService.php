@@ -38,7 +38,7 @@ class BookAppointmentService
             ->exists();
 
         if ($exists) {
-            throw new ConflictHttpException('This time slot is already booked.');
+            throw new ConflictHttpException(trans('messages.slot_booked'));
         }
     }
 
@@ -49,7 +49,7 @@ class BookAppointmentService
             ->exists();
 
         if ($exists) {
-            throw new ConflictHttpException('You already have an active appointment.');
+            throw new ConflictHttpException(trans('messages.email_active'));
         }
     }
 }
