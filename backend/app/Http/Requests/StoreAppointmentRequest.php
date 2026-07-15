@@ -22,7 +22,7 @@ class StoreAppointmentRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email:rfc,dns', 'max:255'],
+            'email' => ['required', 'email:rfc', 'max:255'],
             'date' => ['required', 'date', 'after:today', function ($attribute, $value, $fail) {
                 $day = \Carbon\Carbon::parse($value)->dayOfWeek;
                 if ($day === \Carbon\Carbon::SATURDAY || $day === \Carbon\Carbon::SUNDAY) {
