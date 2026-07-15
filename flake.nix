@@ -1,5 +1,5 @@
 {
-  description = "Danse Macabre — Laravel 12 + Nuxt 4 + PostgreSQL";
+  description = "Danse Macabre — Laravel 13 + Nuxt 4 + PostgreSQL";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -25,6 +25,10 @@
           filter
           openssl
           zlib
+          session
+          dom
+          simplexml
+          xmlwriter
         ]);
 
       in {
