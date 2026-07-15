@@ -40,9 +40,4 @@ class Appointment extends Model
     {
         return $this->status === AppointmentStatus::Active;
     }
-
-    public function cancel(): bool
-    {
-        return $this->update(['status' => AppointmentStatus::Cancelled]);
-    }
 }

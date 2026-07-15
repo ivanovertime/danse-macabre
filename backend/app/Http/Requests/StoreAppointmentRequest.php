@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\TimeSlot;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -14,22 +16,16 @@ class StoreAppointmentRequest extends FormRequest
 
     public function rules(): array
     {
-        $validTimeSlots = [
-            '09:00', '10:00', '11:00', '12:00',
-            '13:00', '14:00', '15:00', '16:00',
-            '17:00', '18:00',
-        ];
-
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email:rfc', 'max:255'],
-            'date' => ['required', 'date', 'after:today', function ($attribute, $value, $fail) {
-                $day = \Carbon\Carbon::parse($value)->dayOfWeek;
-                if ($day === \Carbon\Carbon::SATURDAY || $day === \Carbon\Carbon::SUNDAY) {
+            'date' => ['required', 'date', 'after_or_equal:today', function ($attribute, $value, $fail) {
+                $day = Carbon::parse($value)->dayOfWeek;
+                if ($day === Carbon::SATURDAY || $day === Carbon::SUNDAY) {
                     $fail(trans('validation.weekday_only'));
                 }
             }],
-            'time_slot' => ['required', Rule::in($validTimeSlots)],
+            'time_slot' => ['required', Rule::in(TimeSlot::all())],
         ];
     }
 
@@ -37,7 +33,7 @@ class StoreAppointmentRequest extends FormRequest
     {
         return [
             'time_slot.in' => trans('validation.time_slot.in'),
-            'date.after' => trans('validation.date.after'),
+            'date.after_or_equal' => trans('validation.date.after'),
         ];
     }
 }
