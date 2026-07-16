@@ -45,8 +45,8 @@ return new class extends Migration
         DB::statement('DROP INDEX IF EXISTS idx_appointments_slot_active');
         DB::statement('DROP INDEX IF EXISTS idx_appointments_email_active');
         Schema::table('appointments', function (Blueprint $table) {
-            $table->dropIndex('status');
-            $table->dropIndex('date');
+            $table->dropIndex(['status']);
+            $table->dropIndex(['date']);
         });
         DB::statement('ALTER TABLE appointments DROP CONSTRAINT IF EXISTS chk_time_slot_format');
         Schema::dropIfExists('appointments');

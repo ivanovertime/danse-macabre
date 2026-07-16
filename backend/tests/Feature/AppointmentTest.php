@@ -14,15 +14,12 @@ class AppointmentTest extends TestCase
     {
         parent::setUp();
 
-        $tomorrow = Carbon::tomorrow();
-        while ($tomorrow->isWeekend()) {
-            $tomorrow->addDay();
-        }
+        Carbon::setTestNow(Carbon::parse('2026-07-15 10:00:00'));
 
         $this->validPayload = [
             'name' => 'La Catrina',
             'email' => 'catrina@example.com',
-            'date' => $tomorrow->format('Y-m-d'),
+            'date' => Carbon::tomorrow()->format('Y-m-d'),
             'time_slot' => '10:00',
         ];
     }
@@ -94,10 +91,6 @@ class AppointmentTest extends TestCase
 
     public function test_allows_today_date(): void
     {
-        if (Carbon::today()->isWeekend()) {
-            $this->markTestSkipped('Cannot test same-day booking on weekends');
-        }
-
         $payload = [...$this->validPayload, 'date' => Carbon::today()->format('Y-m-d')];
 
         $response = $this->postJson('/api/appointments', $payload);
@@ -141,9 +134,6 @@ class AppointmentTest extends TestCase
     public function test_get_slots_for_date(): void
     {
         $date = Carbon::tomorrow();
-        while ($date->isWeekend()) {
-            $date->addDay();
-        }
 
         $response = $this->getJson("/api/slots/{$date->format('Y-m-d')}");
 
@@ -160,9 +150,6 @@ class AppointmentTest extends TestCase
     public function test_get_slots_shows_booked(): void
     {
         $date = Carbon::tomorrow();
-        while ($date->isWeekend()) {
-            $date->addDay();
-        }
 
         $this->postJson('/api/appointments', [
             ...$this->validPayload,
@@ -196,7 +183,7 @@ class AppointmentTest extends TestCase
         foreach ($data as $dateKey => $day) {
             $this->assertArrayHasKey('available', $day);
             $this->assertArrayHasKey('total', $day);
-            $this->assertEquals(10, $day['total']);
+            $this->assertEquals(count(TimeSlot::all()), $day['total']);
         }
     }
 }

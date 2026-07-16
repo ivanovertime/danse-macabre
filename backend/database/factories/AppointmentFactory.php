@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Enums\AppointmentStatus;
 use App\Enums\TimeSlot;
 use App\Models\Appointment;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AppointmentFactory extends Factory
@@ -18,7 +19,15 @@ class AppointmentFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'date' => fake()->dateTimeBetween('+1 week', '+2 months'),
+            'date' => function () {
+                $date = Carbon::parse(fake()->dateTimeBetween('+1 week', '+2 months'));
+
+                while ($date->isWeekend()) {
+                    $date->addDay();
+                }
+
+                return $date;
+            },
             'time_slot' => $slots[array_rand($slots)],
             'status' => AppointmentStatus::Active,
         ];
