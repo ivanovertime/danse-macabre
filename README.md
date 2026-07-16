@@ -20,7 +20,7 @@ Prueba técnica para **JuegaEnLinea**: un sistema de citas médicas que en reali
 | Frontend | Nuxt 4.4 SPA (`ssr: false`) + PrimeVue 4.5 (Lara Noir) |
 | Backend | Laravel 13 (API REST JSON) |
 | Base de datos | PostgreSQL 17 |
-| Infra local | Docker Compose (3 servicios) |
+| Infra local | Docker Compose (5 servicios) |
 | Infra prod | DigitalOcean Droplet + FrankenPHP (Caddy) |
 
 ## Arquitectura
@@ -36,9 +36,10 @@ danse-macabre/
 │   ├── app/components/       # Calendar, TimeSlotPicker, BookingForm, Confirmation
 │   ├── app/composables/      # useApi (comunicacion con backend)
 │   └── app/themes/           # Noir (tema PrimeVue)
-├── docker-compose.yml        # Dev: pgsql + backend + frontend
+├── docker-compose.yml        # Dev: pgsql + backend + frontend + caddy
 ├── docker-compose.prod.yml   # Prod: database + app (FrankenPHP)
 ├── Dockerfile.prod           # Multi-stage: Nuxt build → Composer → FrankenPHP
+├── .env.example              # Config compartida dev/prod
 ├── Caddyfile                 # /api/* → PHP, /* → archivos estaticos
 └── .github/workflows/ci.yml  # Test en PR, deploy en push a main
 ```
@@ -49,6 +50,9 @@ danse-macabre/
 # Clonar
 git clone <repo-url> danse-macabre
 cd danse-macabre
+
+# Configurar entorno
+cp .env.example .env
 
 # Levantar todo (PostgreSQL + API + Frontend)
 docker compose up -d
@@ -136,12 +140,12 @@ Al hacer push a `main`, GitHub Actions:
 ```bash
 git clone <repo-url> /opt/danse-macabre
 cd /opt/danse-macabre
-cp .env.prod.example .env
+cp .env.example .env
 # Editar APP_KEY, APP_DOMAIN, DB_PASSWORD
 
 docker compose -f docker-compose.prod.yml up -d --build
 docker compose -f docker-compose.prod.yml exec -T app php artisan key:generate
-docker compose -f docker-compose.prod.yml exec -T app php artisan migrate --force
+# Migraciones se ejecutan automaticamente al iniciar el contenedor
 ```
 
 Requiere GitHub Secrets: `DROPLET_HOST`, `DROPLET_USER`, `DROPLET_SSH_KEY`.
@@ -150,7 +154,7 @@ Requiere GitHub Secrets: `DROPLET_HOST`, `DROPLET_USER`, `DROPLET_SSH_KEY`.
 
 | Comando | Entorno |
 |---------|---------|
-| `docker compose up -d` | Desarrollo (3 servicios, hot reload) |
+| `docker compose up -d` | Desarrollo (5 servicios, hot reload) |
 | `docker compose -f docker-compose.prod.yml up -d` | Produccion (FrankenPHP, build optimizado) |
 
 ## Spec original
