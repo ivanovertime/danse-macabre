@@ -14,6 +14,7 @@ COPY frontend/ .
 
 ARG NUXT_PUBLIC_API_BASE
 ENV NUXT_PUBLIC_API_BASE=$NUXT_PUBLIC_API_BASE
+ENV NODE_OPTIONS=--max-old-space-size=4096
 
 RUN pnpm generate
 
