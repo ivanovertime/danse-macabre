@@ -2,7 +2,7 @@
 
 > *"Porque la única manera de estar realmente saludable... es dejar de estar vivo."*
 
-**AgendaSalud.online** es la plataforma pionera en el modelo **SaaS** (*Soul as a Service*).
+[AgendaSalud.online](https://agendasalud.online/). es la plataforma pionera en el modelo **SaaS** (*Soul as a Service*).
 
 Mientras que los portales médicos tradicionales se desgastan intentando retrasar lo inevitable con tratamientos temporales, nosotros ofrecemos la **optimización definitiva del ciclo de vida del paciente**. Despedirse de las constantes vitales es, técnicamente, erradicar el 100% de las enfermedades conocidas.
 
