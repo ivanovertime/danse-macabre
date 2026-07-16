@@ -87,6 +87,8 @@ async function submit() {
         }
       } else if (err.status === 409 && err.data.message) {
         conflictError.value = err.data.message
+      } else {
+        conflictError.value = err.data?.message || 'An unexpected error occurred'
       }
     }
   } finally {

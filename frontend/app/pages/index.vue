@@ -88,6 +88,7 @@ watch(selectedDate, () => {
 })
 
 function onSubmitted(appointment: Record<string, unknown>) {
+  clearNuxtData()
   bookedAppointment.value = appointment
 }
 
