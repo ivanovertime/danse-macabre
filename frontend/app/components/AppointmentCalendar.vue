@@ -1,29 +1,29 @@
 <template>
-  <div class="flex flex-col items-center gap-4">
+  <div class="flex flex-col items-center gap-4 w-full">
     <label class="text-sm text-surface-400">{{ label }}</label>
-    <DatePicker
-      :model-value="modelValue"
-      inline
-      :disabled-days="[0, 6]"
-      :min-date="minDate"
-      :manual-input="false"
-      date-format="dd/mm/yy"
-      @update:model-value="$emit('update:modelValue', $event)"
-      @month-change="onMonthChange"
-    >
-      <template #date="slotProps">
-        <div class="flex flex-col items-center">
-          <span>{{ slotProps.date.day }}</span>
-          <span
-            v-if="isCurrentMonth(slotProps.date) && getAvailability(slotProps.date)"
-            class="text-[10px] leading-none"
-            :class="getAvailability(slotProps.date)!.available === 0 ? 'text-red-400' : 'text-surface-400'"
-          >
-            {{ getAvailability(slotProps.date)!.available === 0 ? $t('no_slots') : getAvailability(slotProps.date)!.available }}
-          </span>
-        </div>
-      </template>
-    </DatePicker>
+    <div class="bg-black/50 backdrop-blur-sm rounded-2xl border border-white/10 p-3 w-full max-w-sm sm:max-w-none">
+      <DatePicker :model-value="modelValue" inline :disabled-days="[0, 6]" :min-date="minDate" :manual-input="false"
+        date-format="dd/mm/yy" panel-class="!bg-transparent !border-0 !shadow-none" :pt="{
+          header: { class: 'bg-transparent border-0' },
+          title: { class: 'gap-1' },
+          selectMonth: { class: 'text-surface-200 hover:text-white hover:bg-white/10 rounded px-2 py-1 text-sm font-semibold transition-colors cursor-pointer' },
+          selectYear: { class: 'text-surface-200 hover:text-white hover:bg-white/10 rounded px-2 py-1 text-sm font-semibold transition-colors cursor-pointer' },
+          pcPrevButton: { props: { severity: 'secondary', text: true, rounded: true, size: 'small' } },
+          pcNextButton: { props: { severity: 'secondary', text: true, rounded: true, size: 'small' } },
+        }" @update:model-value="$emit('update:modelValue', $event)" @month-change="onMonthChange">
+        <template #date="slotProps">
+          <div class="flex flex-col items-center">
+            <span>{{ slotProps.date.day }}</span>
+            <span v-if="isCurrentMonth(slotProps.date) && getAvailability(slotProps.date)"
+              class="text-[10px] leading-none"
+              :class="getAvailability(slotProps.date)!.available === 0 ? 'text-red-400' : 'text-surface-400'">
+              {{ getAvailability(slotProps.date)!.available === 0 ? $t('no_slots') :
+                getAvailability(slotProps.date)!.available }}
+            </span>
+          </div>
+        </template>
+      </DatePicker>
+    </div>
   </div>
 </template>
 

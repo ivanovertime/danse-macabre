@@ -16,19 +16,9 @@
       {{ conflictError }}
     </Message>
 
-    <div class="flex gap-2">
-      <Button
-        type="submit"
-        :label="$t('book_button')"
-        :loading="loading"
-        class="flex-1"
-      />
-      <Button
-        type="button"
-        :label="$t('cancel_button')"
-        severity="secondary"
-        @click="$emit('cancel')"
-      />
+    <div class="flex flex-col sm:flex-row gap-2">
+      <Button type="submit" :label="$t('book_button')" :loading="loading" class="flex-1" />
+      <Button type="button" :label="$t('cancel_button')" severity="secondary" @click="$emit('cancel')" />
     </div>
   </form>
 </template>
