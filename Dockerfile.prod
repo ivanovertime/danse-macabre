@@ -26,6 +26,7 @@ COPY backend/composer.json backend/composer.lock ./
 RUN composer install --no-dev --optimize-autoloader --no-scripts --no-autoloader
 
 COPY backend/ .
+RUN mkdir -p bootstrap/cache
 RUN composer dump-autoload --optimize --no-dev
 
 # Stage 3: Production image
