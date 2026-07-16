@@ -5,9 +5,8 @@ Nuxt 4.4 SPA con PrimeVue 4.5. Sin SSR — todo el rendering es del lado del cli
 ## Stack
 
 - **Nuxt 4.4** (`ssr: false`)
-- **PrimeVue 4.5** — Tema Lara Noir (dark mode por defecto)
+- **PrimeVue 4.5** — Noir (tema custom basado en Lara con paleta Stone, dark mode por defecto)
 - **Tailwind CSS** — utilidades
-- **nuqs** — state management via URL query params
 - **i18n** — ingles y espanol
 
 ## Estructura
@@ -29,14 +28,10 @@ frontend/app/
 
 ## Desarrollo
 
-```bash
-# Ya esta levantado con docker compose up -d
-# Hot reload en http://localhost:3000
+Ya esta levantado con docker compose up -d desde la raiz del proyecto? 
+Hot reload en http://localhost:3000
 
-# Si necesitas correr sin Docker:
-pnpm install
-pnpm dev
-```
+Si necesitas/quieres ejecutarlo sin Docker no me hago responsable, pero deberia funcionar. 
 
 ## Build
 

@@ -8,6 +8,8 @@ Laravel 13 API REST. JSON puro, sin vistas.
 - **PostgreSQL 17**
 - **PHP 8.4**
 
+Si necesitas/quieres ejecutarlo sin Docker no me hago responsable, pero deberia funcionar. 
+
 ## Estructura clave
 
 ```

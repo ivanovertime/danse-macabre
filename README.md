@@ -2,13 +2,11 @@
 
 > *"Porque la única manera de estar realmente saludable... es dejar de estar vivo."*
 
-[AgendaSalud.online](https://agendasalud.online/). es la plataforma pionera en el modelo **SaaS** (*Soul as a Service*).
 
-Mientras que los portales médicos tradicionales se desgastan intentando retrasar lo inevitable con tratamientos temporales, nosotros ofrecemos la **optimización definitiva del ciclo de vida del paciente**. Despedirse de las constantes vitales es, técnicamente, erradicar el 100% de las enfermedades conocidas.
+[AgendaSalud.online](https://agendasalud.online/). es la plataforma pionera en el modelo **SaaS** (*Soul as a Service*). Erradica el 100% de las enfermedades conocidas.
 
-Tu consulta automatizada está gestionada directamente por nuestra **Directora de Operaciones Globales**: La Muerte. Tu próxima cita ya está agendada; aquí solo gestionamos el contrato para tu último baile.
+Prueba técnica para **JuegaEnLinea**: un sistema de citas para reservar tu último baile (con la muerte).
 
-Prueba técnica para **JuegaEnLinea**: un sistema de citas médicas que en realidad sirve para reservar tu último baile.
 
 ![App Preview](./docs/preview.png)
 ---
@@ -17,30 +15,34 @@ Prueba técnica para **JuegaEnLinea**: un sistema de citas médicas que en reali
 
 | Capa | Tecnologia |
 |------|-----------|
-| Frontend | Nuxt 4.4 SPA (`ssr: false`) + PrimeVue 4.5 (Lara Noir) |
-| Backend | Laravel 13 (API REST JSON) |
+| Frontend | Nuxt 4.4 SPA (`ssr: false`) + PrimeVue 4.5 (Noir theme) |
+| Backend | Laravel 13.20 + PHP 8.4 (API REST JSON) |
 | Base de datos | PostgreSQL 17 |
-| Infra local | Docker Compose (5 servicios) |
+| Infra local | Docker Compose (3 servicios) |
 | Infra prod | DigitalOcean Droplet + FrankenPHP (Caddy) |
 
 ## Arquitectura
 
 ```
 danse-macabre/
-├── backend/                  # Laravel 13 — API REST
+├── backend/                  # Laravel 13 — API REST (docs → backend/README.md)
 │   ├── app/Enums/            # TimeSlot (fuente unica), AppointmentStatus
 │   ├── app/Http/Controllers/ # AppointmentController (3 endpoints)
 │   ├── app/Services/         # BookAppointmentService (logica de negocio)
 │   └── tests/                # 14 tests, 92 assertions
-├── frontend/                 # Nuxt 4 SPA
-│   ├── app/components/       # Calendar, TimeSlotPicker, BookingForm, Confirmation
+├── frontend/                 # Nuxt 4 SPA (docs → frontend/README.md)
+│   ├── app/components/       # AppointmentCalendar, TimeSlotPicker, BookingForm, BookingConfirmation
 │   ├── app/composables/      # useApi (comunicacion con backend)
-│   └── app/themes/           # Noir (tema PrimeVue)
-├── docker-compose.yml        # Dev: pgsql + backend + frontend + caddy
+│   ├── app/pages/            # Pagina principal (wizard de booking)
+│   ├── app/themes/           # Noir (tema PrimeVue custom)
+│   └── i18n/                 # EN/ES localizacion
+├── docker-compose.yml        # Dev: pgsql + backend + frontend (3 servicios)
 ├── docker-compose.prod.yml   # Prod: database + app (FrankenPHP)
 ├── Dockerfile.prod           # Multi-stage: Nuxt build → Composer → FrankenPHP
+├── docker/start-prod.sh      # Config cache + migrate + FrankenPHP
 ├── .env.example              # Config compartida dev/prod
 ├── Caddyfile                 # /api/* → PHP, /* → archivos estaticos
+├── flake.nix                 # Nix dev shell (alternativa a Docker)
 └── .github/workflows/ci.yml  # Test en PR, deploy en push a main
 ```
 
@@ -65,6 +67,8 @@ docker compose exec backend php artisan migrate
 # API:      http://localhost:8000/api
 ```
 
+> **Entorno de desarrollo:** Docker es la forma recomendada de ejecutar este proyecto. Si usas Nix, `nix develop` (o direnv via `.envrc`) provee PHP 8.4, Node 22, pnpm y PostgreSQL 17 — pero igual requiere Docker.
+
 ## API
 
 3 endpoints, todos bajo `/api`:
@@ -75,6 +79,8 @@ docker compose exec backend php artisan migrate
 | `GET` | `/api/slots/month/{year}/{month}` | Resumen de disponibilidad por mes |
 | `POST` | `/api/appointments` | Reservar cita |
 
+> Rate limiting: 60 peticiones por minuto por IP.
+
 ### Ejemplo de booking
 
 ```json
@@ -82,7 +88,7 @@ POST /api/appointments
 {
   "name": "Juan Perez",
   "email": "juan@example.com",
-  "date": "2025-07-21",
+  "date": "2026-07-21",
   "time_slot": "10:00"
 }
 ```
@@ -144,22 +150,17 @@ cp .env.example .env
 # Editar APP_KEY, APP_DOMAIN, DB_PASSWORD
 
 docker compose -f docker-compose.prod.yml up -d --build
-docker compose -f docker-compose.prod.yml exec -T app php artisan key:generate
+
 # Migraciones se ejecutan automaticamente al iniciar el contenedor
 ```
 
 Requiere GitHub Secrets: `DROPLET_HOST`, `DROPLET_USER`, `DROPLET_SSH_KEY`.
 
-### Dev vs Prod
+## Docs
 
-| Comando | Entorno |
-|---------|---------|
-| `docker compose up -d` | Desarrollo (5 servicios, hot reload) |
-| `docker compose -f docker-compose.prod.yml up -d` | Produccion (FrankenPHP, build optimizado) |
-
-## Spec original
-
-El requisito completo esta en [`docs/PRUEBA_TECNICA.md`](docs/PRUEBA_TECNICA.md).
+- [`backend/README.md`](backend/README.md) — API, estructura, reglas de negocio
+- [`frontend/README.md`](frontend/README.md) — Componentes, tema, i18n
+- [`docs/PRUEBA_TECNICA.md`](docs/PRUEBA_TECNICA.md) — Requisito original
 
 ---
 
