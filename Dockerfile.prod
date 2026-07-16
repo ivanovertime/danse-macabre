@@ -48,8 +48,13 @@ RUN mkdir -p storage/framework/{cache,sessions,testing,views} \
     && mkdir -p bootstrap/cache \
     && chown -R www-data:www-data /app/storage /app/bootstrap/cache
 
+COPY docker/start-prod.sh /usr/local/bin/start-prod.sh
+RUN chmod +x /usr/local/bin/start-prod.sh
+
 ENV APP_ENV=production \
     APP_DEBUG=false \
     SERVER_NAME=":80"
 
-EXPOSE 80 443
+EXPOSE 80
+
+ENTRYPOINT ["/usr/local/bin/start-prod.sh"]

@@ -1,4 +1,4 @@
-{$SERVER_NAME:localhost} {
+http://{$SERVER_NAME:localhost} {
 	root * /app/public
 
 	handle /api/* {

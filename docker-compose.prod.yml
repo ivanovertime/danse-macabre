@@ -4,22 +4,16 @@ services:
       context: .
       dockerfile: Dockerfile.prod
       args:
-        NUXT_PUBLIC_API_BASE: "${NUXT_PUBLIC_API_BASE:-https://${APP_DOMAIN}}"
+        NUXT_PUBLIC_API_BASE: "https://${APP_DOMAIN}"
+    env_file: .env
     environment:
-      APP_KEY: "${APP_KEY}"
+      APP_ENV: production
+      APP_DEBUG: "false"
       APP_URL: "https://${APP_DOMAIN}"
-      DB_CONNECTION: pgsql
+      SERVER_NAME: "${APP_DOMAIN}, :80"
       DB_HOST: database
-      DB_PORT: 5432
-      DB_DATABASE: "${DB_DATABASE:-danse_macabre}"
-      DB_USERNAME: "${DB_USERNAME:-postgres}"
-      DB_PASSWORD: "${DB_PASSWORD}"
-      CACHE_STORE: database
-      SESSION_DRIVER: database
-      QUEUE_CONNECTION: database
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./Caddyfile:/etc/frankenphp/Caddyfile
       - caddy_data:/data

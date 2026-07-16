@@ -30,12 +30,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - '${APP_PORT:-8000}:8000'
+    env_file: .env
     environment:
       DB_HOST: pgsql
       DB_PORT: 5432
-      DB_DATABASE: '${DB_DATABASE:-danse_macabre}'
-      DB_USERNAME: '${DB_USERNAME:-postgres}'
-      DB_PASSWORD: '${DB_PASSWORD:-postgres}'
     volumes:
       - './backend:/var/www/html'
     networks:
@@ -50,9 +48,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - '${FRONTEND_PORT:-3000}:3000'
+    env_file: .env
     environment:
-      NUXT_PUBLIC_API_BASE: 'http://localhost:8000'
       HOST: '0.0.0.0'
+      NUXT_PUBLIC_API_BASE: 'http://localhost:8000'
     volumes:
       - './frontend:/app'
       - '/app/node_modules'
