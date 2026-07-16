@@ -1,15 +1,54 @@
 <template>
   <div class="flex flex-col items-center gap-4 w-full">
     <label class="text-sm text-surface-400">{{ label }}</label>
-    <div class="bg-black/50 backdrop-blur-sm rounded-2xl border border-white/10 p-3 w-full max-w-sm sm:max-w-none">
+    <div class="bg-black/50 backdrop-blur-sm rounded-2xl border border-white/10 p-2 sm:p-3 w-full max-w-full overflow-hidden"
+         style="max-width: min(100%, 28rem)">
       <DatePicker :model-value="modelValue" inline :disabled-days="[0, 6]" :min-date="minDate" :manual-input="false"
-        date-format="dd/mm/yy" panel-class="!bg-transparent !border-0 !shadow-none" :pt="{
-          header: { class: 'bg-transparent border-0' },
-          title: { class: 'gap-1' },
-          selectMonth: { class: 'text-surface-200 hover:text-white hover:bg-white/10 rounded px-2 py-1 text-sm font-semibold transition-colors cursor-pointer' },
-          selectYear: { class: 'text-surface-200 hover:text-white hover:bg-white/10 rounded px-2 py-1 text-sm font-semibold transition-colors cursor-pointer' },
+        date-format="dd/mm/yy" panel-class="!bg-transparent !border-0 !shadow-none"
+        :pt="{
+          panel: { style: { padding: '0.5rem', minWidth: '0', width: '100%' } },
+          header: { style: { background: 'transparent', border: '0', padding: '0.5rem', gap: '0.5rem', minWidth: '0', flexWrap: 'nowrap', overflow: 'hidden' } },
+          title: { style: { gap: '0.25rem', minWidth: '0', overflow: 'hidden' } },
+          selectMonth: { style: {
+            background: 'transparent',
+            color: 'rgb(212, 212, 212)',
+            padding: '0.25rem 0.5rem',
+            borderRadius: '0.375rem',
+            fontSize: 'clamp(0.7rem, 2.5vw, 0.875rem)',
+            fontWeight: '600',
+            cursor: 'pointer',
+            border: '0',
+            transition: 'color 0.15s, background-color 0.15s',
+            whiteSpace: 'nowrap',
+            minWidth: '0',
+            flexShrink: '1',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }},
+          selectYear: { style: {
+            background: 'transparent',
+            color: 'rgb(212, 212, 212)',
+            padding: '0.25rem 0.5rem',
+            borderRadius: '0.375rem',
+            fontSize: 'clamp(0.7rem, 2.5vw, 0.875rem)',
+            fontWeight: '600',
+            cursor: 'pointer',
+            border: '0',
+            transition: 'color 0.15s, background-color 0.15s',
+            whiteSpace: 'nowrap',
+            minWidth: '0',
+            flexShrink: '1',
+          }},
           pcPrevButton: { props: { severity: 'secondary', text: true, rounded: true, size: 'small' } },
           pcNextButton: { props: { severity: 'secondary', text: true, rounded: true, size: 'small' } },
+          dayView: { style: { width: '100%' } },
+          dayCell: { style: { padding: 'clamp(0.05rem, 0.8vw, 0.25rem)' } },
+          day: { style: {
+            width: 'clamp(1.75rem, calc((100vw - 9rem) / 7), 2.5rem)',
+            height: 'clamp(1.75rem, calc((100vw - 9rem) / 7), 2.5rem)',
+            fontSize: 'clamp(0.6rem, 2.2vw, 0.875rem)',
+          }},
+          weekday: { style: { fontSize: 'clamp(0.5rem, 1.8vw, 0.75rem)' } },
         }" @update:model-value="$emit('update:modelValue', $event)" @month-change="onMonthChange">
         <template #date="slotProps">
           <div class="flex flex-col items-center">

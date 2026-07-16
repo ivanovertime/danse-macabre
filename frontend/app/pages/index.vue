@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 relative"
+    class="min-h-screen flex flex-col items-center justify-start sm:justify-center p-4 sm:p-8 relative overflow-x-hidden"
     :style="{
       backgroundImage: 'url(/bg.gif)',
       backgroundSize: 'cover',
@@ -10,10 +10,10 @@
     }"
   >
     <div class="absolute inset-0 bg-black/60 pointer-events-none" />
-    <h1 class="font-display text-4xl sm:text-5xl text-center mb-6 title-flicker">
+    <h1 class="font-display text-3xl sm:text-5xl text-center mb-3 sm:mb-6 title-flicker">
       {{ $t('title') }}
     </h1>
-    <div class="flex flex-col items-center gap-8 max-w-2xl lg:max-w-4xl w-full bg-black/50 backdrop-blur-sm rounded-2xl p-4 sm:p-8">
+    <div class="flex flex-col items-center gap-4 sm:gap-8 max-w-2xl lg:max-w-4xl w-full bg-black/50 backdrop-blur-sm rounded-2xl p-3 sm:p-8">
       <div class="flex flex-col sm:flex-row w-full justify-between items-center sm:items-start gap-4">
         <div class="text-center sm:text-left flex-1">
           <p class="text-surface-400">{{ $t('subtitle') }}</p>
@@ -34,7 +34,7 @@
       />
 
       <template v-else>
-        <div class="flex flex-col lg:flex-row gap-8 w-full">
+        <div class="flex flex-col lg:flex-row gap-4 sm:gap-8 w-full">
           <div class="lg:w-1/2 flex justify-center">
             <AppointmentCalendar
               v-model="selectedDate"
@@ -42,7 +42,7 @@
             />
           </div>
 
-          <div class="lg:w-1/2 flex flex-col items-center gap-8">
+          <div class="lg:w-1/2 flex flex-col items-center gap-4 sm:gap-8">
             <TimeSlotPicker
               v-if="selectedDate"
               :key="selectedDate.toISOString()"

@@ -6,7 +6,7 @@
       <ProgressSpinner style="width: 32px; height: 32px" />
     </div>
 
-    <div v-else-if="slots" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+    <div v-else-if="slots" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 w-full">
       <Button
         v-for="slot in slots"
         :key="slot.time"
